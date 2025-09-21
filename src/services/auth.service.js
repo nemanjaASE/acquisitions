@@ -56,25 +56,33 @@ export const createUser = async ({ name, email, password, role = 'user' }) => {
 
 export const authenticateUser = async ({ email, password }) => {
   try {
-    const [user] = await db
+    const [existingUser] = await db
       .select()
       .from(users)
       .where(eq(users.email, email))
       .limit(1);
 
-    if (!user) {
+    if (!existingUser) {
       throw new Error('User not found');
     }
 
-    const isPasswordValid = await comparePassword(password, user.password);
+    const isPasswordValid = await comparePassword(
+      password,
+      existingUser.password
+    );
     if (!isPasswordValid) {
       throw new Error('Invalid password');
     }
 
     // Return user without password
-    const { password: _, ...userWithoutPassword } = user;
-    logger.info(`User authenticated successfully: ${email}`);
-    return userWithoutPassword;
+    logger.info(`User authenticated successfully: ${existingUser.email}`);
+    return {
+      id: existingUser.id,
+      name: existingUser.name,
+      email: existingUser.email,
+      role: existingUser.role,
+      created_at: existingUser.created_at,
+    };
   } catch (e) {
     logger.error(`Error authenticating user: ${e}`);
     throw e;
