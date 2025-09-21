@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { securityMiddleware } from '#middleware/security.middleware.js';
 
 import authRouthes from '#routes/auth.routes.js';
+import userRoutes from '#routes/users.routes.js';
 
 const app = express();
 
@@ -38,5 +39,6 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/api/auth', authRouthes);
+app.use('/api/users', userRoutes);
 
 export default app;
