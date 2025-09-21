@@ -70,3 +70,4 @@
 {"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api"}
 {"level":"info","message":"User authenticated successfully: contact123@jsmastery.com","service":"acquisitions-api"}
 {"level":"info","message":"User signed in successfully: contact123@jsmastery.com","service":"acquisitions-api"}
+{"level":"info","message":"Hello from Acquisition!","service":"acquisitions-api"}
